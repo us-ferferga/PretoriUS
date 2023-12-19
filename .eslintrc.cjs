@@ -20,7 +20,8 @@ module.exports = {
     'types/global/routes.d.ts',
     'types/global/components.d.ts',
     'dist',
-    'node_modules'
+    'node_modules',
+    'package*.json'
   ],
   extends: [
     'eslint:recommended',
@@ -100,25 +101,6 @@ module.exports = {
     ],
     'import/no-nodejs-modules': 'error',
     'no-restricted-imports': 'off',
-    '@typescript-eslint/no-restricted-imports': [
-      'error',
-      {
-        patterns: [
-          {
-            group: ['*/plugins*'],
-            message:
-                            'Do not use Vue plugins directly. Use composables (from @/composables) instead.',
-            allowTypeImports: true
-          },
-          {
-            group: ['*/main*'],
-            message:
-                            'Do not use the Vue instance directly. Use composables (from @/composables) instead.',
-            allowTypeImports: true
-          }
-        ]
-      }
-    ],
     'jsdoc/require-hyphen-before-param-description': 'error',
     'jsdoc/require-description': 'error',
     'jsdoc/no-types': 'error',

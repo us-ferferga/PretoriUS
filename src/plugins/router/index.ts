@@ -3,8 +3,8 @@ import {
   createRouter,
   createWebHashHistory
 } from 'vue-router/auto';
-import metaGuard from './middlewares/meta';
 import { useTitle } from '@vueuse/core';
+import metaGuard from './middlewares/meta';
 
 const router = createRouter({
   history: createWebHashHistory()

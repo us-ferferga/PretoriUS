@@ -5,7 +5,8 @@ interface RouteTransition {
 
 declare module 'vue-router' {
   interface RouteMeta {
-    layout: 'default';
+    layout: 'default' | 'login';
+    access?: UserType;
     title?: string | null;
     transition?: RouteTransition;
   }

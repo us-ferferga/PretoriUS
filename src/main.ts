@@ -5,12 +5,12 @@
  */
 
 import { createApp } from 'vue';
-import Root from '@/App.vue';
-/* eslint-disable @typescript-eslint/no-restricted-imports */
 import { Quasar } from 'quasar';
-import router from '@/plugins/router';
 import quasarOptions from './plugins/quasar';
-/* eslint-enable @typescript-eslint/no-restricted-imports */
+import Root from '@/App.vue';
+
+import router from '@/plugins/router';
+
 
 /**
  * - GLOBAL STYLES -
