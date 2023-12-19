@@ -1,16 +1,9 @@
 import { useStorage } from '@vueuse/core';
 
 interface UserStoreState {
-  users: User[];
   currentUserIndex?: number;
   rememberMe: boolean;
 }
-
-const initialUsers: User[] = [
-  { dni: '00000000A', password: 'operaciones', type: 'D.OPERACIONES' },
-  { dni: '11111111B', password: 'seguridad', type: 'J.SEGURIDAD' },
-  { dni: '22222222C', password: 'servicio', type: 'J.SERVICIO' }
-];
 
 class UserStore {
   /**
@@ -19,21 +12,21 @@ class UserStore {
   private _state = useStorage<UserStoreState>(
     'auth',
     {
-      users: initialUsers,
       currentUserIndex: undefined,
       rememberMe: true
     },
     localStorage
   );
+  private _users: User[] = [
+    { dni: '00000000A', password: 'operaciones', type: 'D.OPERACIONES' },
+    { dni: '11111111B', password: 'seguridad', type: 'J.SEGURIDAD' },
+    { dni: '22222222C', password: 'servicio', type: 'J.SERVICIO' }
+  ];
   /**
    * Getters
    */
   public get currentUser(): User | undefined {
-    return this._state.value.currentUserIndex === undefined ? undefined : this._state.value.users[this._state.value.currentUserIndex];
-  }
-
-  private get _users(): User[] {
-    return this._state.value.users;
+    return this._state.value.currentUserIndex === undefined ? undefined : this._users[this._state.value.currentUserIndex];
   }
 
   /**
@@ -42,22 +35,25 @@ class UserStore {
   /**
    * Logs the user to the application
    *
-   * @param username
+   * @param dni
    * @param password
    * @param rememberMe
    */
   public loginUser = (
-    username: string,
+    dni: string,
     password: string,
     rememberMe = true
-  ): void => {
-    const user = this._users.findIndex((u) => u.dni === username.trim() && u.password === password.trim());
+  ): boolean => {
+    const user = this._users.findIndex((u) => u.dni === dni.trim() && u.password === password.trim());
 
-    if (user !== -1) {
+    if (user === -1) {
+      return false;
+    } else {
       this._state.value.currentUserIndex = user;
-    }
+      this._state.value.rememberMe = rememberMe;
 
-    this._state.value.rememberMe = rememberMe;
+      return true;
+    }
   };
 
   /**
@@ -75,7 +71,7 @@ class UserStore {
   };
 
   public constructor() {
-    if (this._state.value.rememberMe) {
+    if (!this._state.value.rememberMe) {
       this._state.value.currentUserIndex = undefined;
     }
   }

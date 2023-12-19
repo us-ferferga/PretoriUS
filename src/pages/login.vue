@@ -3,7 +3,12 @@
     :src="banner"
     class="w-2xl pa-10"
     alt="Header image" />
-  <QForm @submit="submit">
+  <h2 class="text-center mb-5">
+    Iniciar sesión
+  </h2>
+  <QForm
+    autofocus
+    @submit.prevent="submit">
     <div class="flex justify-center flex-col">
       <QInput
         v-model="dni"
@@ -27,6 +32,7 @@
         v-model="remember"
         label="Mantener la sesión iniciada" />
       <QBtn
+        type="submit"
         class="mt-2"
         color="blue"
         rounded>
@@ -42,6 +48,7 @@ meta:
 </route>
 
 <script setup lang="ts">
+import { Notify } from 'quasar';
 import { ref } from 'vue';
 import banner from '@/assets/img/header.png';
 import { userStore } from '@/store/user';
@@ -56,7 +63,14 @@ const dniRegex = /^\d{1,8}[A-Za-z]$/;
  * Submits the login data
  */
 function submit(): void {
+  const result = userStore.loginUser(dni.value, password.value, remember.value);
 
-  userStore.loginUser(dni.value, password.value, remember.value);
+  if (!result) {
+    Notify.create({
+      message: 'Credenciales incorrectas',
+      color: 'red',
+      type: 'negative'
+    });
+  }
 }
 </script>

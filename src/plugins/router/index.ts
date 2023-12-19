@@ -1,10 +1,12 @@
-import { computed } from 'vue';
+import { useTitle } from '@vueuse/core';
+import { computed, watch } from 'vue';
 import {
   createRouter,
   createWebHashHistory
 } from 'vue-router/auto';
-import { useTitle } from '@vueuse/core';
 import metaGuard from './middlewares/meta';
+import permissionGuard from './middlewares/permissions';
+import { userStore } from '@/store/user';
 
 const router = createRouter({
   history: createWebHashHistory()
@@ -14,6 +16,7 @@ const router = createRouter({
  * Middlewares
  */
 router.beforeEach(metaGuard);
+router.beforeEach(permissionGuard);
 
 /**
  * Replaces the 'back' function, taking into account if there's a previous page or not.
@@ -56,5 +59,9 @@ const pageTitle = computed(() => {
 });
 
 useTitle(pageTitle);
+
+watch(() => userStore.currentUser, async () => {
+  await (userStore.currentUser ? router.replace('/') : router.replace('/login'));
+});
 
 export default router;
