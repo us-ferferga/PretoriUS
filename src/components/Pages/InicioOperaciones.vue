@@ -4,7 +4,7 @@
       Clientes
     </template>
     <template #leftContent>
-      <ContentCard :content="testData" addLink="/login" />
+      <ContentCard :content="testData" addLink="/clients/add" />
     </template>
     <template #rightContent>
       <Calendar />
