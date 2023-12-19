@@ -8,7 +8,7 @@ export default {
   },
   config: {
     brand: {
-      primary: '#000000',
+      primary: '#233b5c',
       secondary: '#0d8276',
       accent: '#9C27B0',
       dark: '#1d1d1d',

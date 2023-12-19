@@ -6,6 +6,12 @@ interface UserStoreState {
   rememberMe: boolean;
 }
 
+const initialUsers: User[] = [
+  { dni: '00000000A', password: 'operaciones', type: 'D.OPERACIONES' },
+  { dni: '11111111B', password: 'seguridad', type: 'J.SEGURIDAD' },
+  { dni: '22222222C', password: 'servicio', type: 'J.SERVICIO' }
+];
+
 class UserStore {
   /**
    * == STATE ==
@@ -13,7 +19,7 @@ class UserStore {
   private _state = useStorage<UserStoreState>(
     'auth',
     {
-      users: [],
+      users: initialUsers,
       currentUserIndex: undefined,
       rememberMe: true
     },
