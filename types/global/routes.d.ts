@@ -43,8 +43,10 @@ declare module 'vue-router/auto/routes' {
     '/clients/[id]': RouteRecordInfo<'/clients/[id]', '/clients/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/clients/add': RouteRecordInfo<'/clients/add', '/clients/add', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
-    '/places/[id]': RouteRecordInfo<'/places/[id]', '/places/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
-    '/places/add': RouteRecordInfo<'/places/add', '/places/add', Record<never, never>, Record<never, never>>,
+    '/places/[parent_id]/[id]': RouteRecordInfo<'/places/[parent_id]/[id]', '/places/:parent_id/:id', { parent_id: ParamValue<true>, id: ParamValue<true> }, { parent_id: ParamValue<false>, id: ParamValue<false> }>,
+    '/places/[parent_id]/add': RouteRecordInfo<'/places/[parent_id]/add', '/places/:parent_id/add', { parent_id: ParamValue<true> }, { parent_id: ParamValue<false> }>,
+    '/services/[parent_id]/[id]': RouteRecordInfo<'/services/[parent_id]/[id]', '/services/:parent_id/:id', { parent_id: ParamValue<true>, id: ParamValue<true> }, { parent_id: ParamValue<false>, id: ParamValue<false> }>,
+    '/services/[parent_id]/add': RouteRecordInfo<'/services/[parent_id]/add', '/services/:parent_id/add', { parent_id: ParamValue<true> }, { parent_id: ParamValue<false> }>,
   }
 }
 

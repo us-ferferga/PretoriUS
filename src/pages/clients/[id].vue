@@ -50,8 +50,10 @@
     <template #rightContent>
       <ContentCard
         :content="lugares"
-        add-link="/places/add"
-        item-link="/places/[id]" />
+        add-link="/places/[parent_id]/add"
+        item-link="/places/[parent_id]/[id]"
+        :parent-id="empresa.id"
+        search-label="Buscar lugares..." />
     </template>
   </PageTemplate>
 </template>
@@ -62,10 +64,10 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router/auto';
 import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router/auto';
 
 const route = useRoute<'/clients/[id]'>();
 
@@ -73,7 +75,7 @@ const empresa = computed(() => {
   return clientStore.clients.find((i) => i.id === route.params.id);
 });
 const lugares = computed(() => {
-  return placeStore.places.filter((i) => i.empresaId === empresa.value?.id)
+  return placeStore.places.filter((i) => i.clientId === empresa.value?.id)
     .map((i) => ({
       text: i.nombre,
       id: i.id

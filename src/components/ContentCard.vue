@@ -4,11 +4,11 @@
       <QInput
         v-model="search"
         class="flex-grow"
-        label="Buscar" />
+        :label="searchLabel ?? 'Buscar'" />
       <RouterLink
         v-if="addLink"
         v-slot="{ navigate }"
-        :to="addLink"
+        :to="replaceParentId(addLink)"
         custom>
         <QBtn
           class="ml-2 flex justify-center"
@@ -53,6 +53,8 @@ const props = defineProps<{
   content: TableItem[];
   addLink?: keyof RouteNamedMap;
   itemLink: keyof RouteNamedMap;
+  parentId?: string;
+  searchLabel?: string;
 }>();
 
 const search = ref('');
@@ -62,9 +64,16 @@ const filterContent = computed(() => {
 });
 
 /**
+ * Replaces the parent_id in the url
+ */
+function replaceParentId(url: string): string {
+  return props.parentId ? url.replace('[parent_id]', props.parentId) : url;
+}
+
+/**
  * Replaces the url pattern with the given id
  */
 function replaceId(id: string): string {
-  return props.itemLink.replace('[id]', id);
+  return replaceParentId(props.itemLink.replace('[id]', id));
 }
 </script>

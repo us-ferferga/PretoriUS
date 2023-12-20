@@ -7,7 +7,8 @@
       <ContentCard
         :content="clientData"
         add-link="/clients/add"
-        item-link="/clients/[id]" />
+        item-link="/clients/[id]"
+        search-label="Buscar clientes..." />
     </template>
     <template #rightContent>
       <Calendar />
@@ -16,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { clientStore } from '@/store/clients';
+import { computed } from 'vue';
 
 const clientData = computed(() => {
   return clientStore.clients.map((i) => {

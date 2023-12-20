@@ -16,7 +16,7 @@ interface Client {
 
 interface Place {
   id: string;
-  empresaId: string;
+  clientId: string;
   nombre: string;
   direccion: string;
   edificio: 'Interior' | 'Exterior';

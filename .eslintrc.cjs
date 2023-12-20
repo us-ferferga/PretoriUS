@@ -88,7 +88,6 @@ module.exports = {
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-secrets/no-secrets': 'error',
     'import/newline-after-import': 'error',
-    'import/order': 'error',
     'import/no-unresolved': ['error', { ignore: ['virtual:*', 'vue-router/auto/*'] }],
     'import/no-extraneous-dependencies': [
       'error',
