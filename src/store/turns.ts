@@ -1,16 +1,16 @@
 import { useStorage } from '@vueuse/core';
 import { v4 } from 'uuid';
 
-class ClientStore {
+class TurnStore {
   /**
    * == STATE ==
    */
-  private _state = useStorage<Client[]>(
-    'clients',
+  private _state = useStorage<Turn[]>(
+    'turns',
     [],
     localStorage
   );
-  private _defaultClients: Client[] = [
+  private _defaultTurns: Turn[] = [
     { id: '7c44560f-5df4-4d52-893b-cb17167daad4',
       nombreEmpresa: 'Empresa 1',
       razonSocial: 'S.A',
@@ -41,17 +41,17 @@ class ClientStore {
   /**
    * Getters
    */
-  public get clients(): readonly Client[] {
-    return [...this._defaultClients, ...this._state.value];
+  public get turns(): readonly Turn[] {
+    return [...this._defaultTurns, ...this._state.value];
   }
 
   /**
    * Methods
    */
-  public addClient = (client: Omit<Client, 'id'>): void => {
-    (client as Client).id = v4();
-    this._state.value.push(client as Client);
+  public addClient = (turn: Omit<Turn, 'id'>): void => {
+    (turn as Turn).id = v4();
+    this._state.value.push(turn as Turn);
   };
 }
 
-export const clientStore = new ClientStore();
+export const turnStore = new TurnStore();

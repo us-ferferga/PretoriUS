@@ -49,13 +49,10 @@ class PlaceStore {
   /**
    * Methods
    */
-  /**
-   * Añadir cliente
-   */
-  public addPlace(place: Omit<Place, 'id'>): void {
+  public addPlace = (place: Omit<Place, 'id'>): void => {
     (place as Place).id = v4();
     this._state.value.push(place as Place);
-  }
+  };
 }
 
 export const placeStore = new PlaceStore();

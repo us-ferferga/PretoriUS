@@ -20,21 +20,32 @@
     </QCardSection>
     <QCardSection class="h-xl w-2xl overflow-scroll">
       <QList dense>
-        <RouterLink
-          v-for="item,index in filterContent"
-          :key="`${index}-${item.id}`"
-          v-slot="{ navigate }"
-          :to="replaceId(item.id)"
-          custom>
+        <template v-if="itemLink">
+          <RouterLink
+            v-for="item,index in filterContent"
+            :key="`${index}-${item.id}`"
+            v-slot="{ navigate }"
+            :to="replaceId(item.id)"
+            custom>
+            <QItem
+              v-ripple
+              clickable
+              @click="() => navigate()">
+              <QItemSection>
+                {{ item.text }}
+              </QItemSection>
+            </QItem>
+          </RouterLink>
+        </template>
+        <template v-else>
           <QItem
-            v-ripple
-            clickable
-            @click="() => navigate()">
+            v-for="item,index in filterContent"
+            :key="`${index}-${item.id}`">
             <QItemSection>
               {{ item.text }}
             </QItemSection>
           </QItem>
-        </RouterLink>
+        </template>
       </QList>
     </QCardSection>
   </QCard>

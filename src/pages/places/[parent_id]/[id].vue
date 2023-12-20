@@ -40,10 +40,10 @@
     <template #rightContent>
       <ContentCard
         :content="servicios"
-        add-link="/places/[parent_id]/add"
-        item-link="/places/[parent_id]/[id]"
-        :parent-id="empresa.id"
-        search-label="Buscar lugares..." />
+        add-link="/services/[parent_id]/add"
+        item-link="/services/[parent_id]/[id]"
+        :parent-id="lugar.id"
+        search-label="Buscar servicios..." />
     </template>
   </PageTemplate>
 </template>
@@ -57,7 +57,9 @@ meta:
 import mapPlaceholder from '@/assets/img/map-placeholder.png';
 import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
-import { computed } from 'vue';
+import { serviceStore } from '@/store/services';
+import { turnStore } from '@/store/turns';
+import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
 const route = useRoute<'/places/[parent_id]/[id]'>();
@@ -67,5 +69,37 @@ const empresa = computed(() => {
 });
 const lugar = computed(() => {
   return placeStore.places.find((p) => p.id === route.params.id && p.clientId === route.params.parent_id);
+});
+const servicios = computed(() => {
+  const currentDate = new Date();
+
+  return serviceStore.services.filter((s) => s.lugarId === route.params.id)
+    .map((s) => {
+      const turns = turnStore.turns.filter((t) => t.serviceId === s.id);
+      let text = `${s.inicio.toLocaleString()} al ${s.fin.toLocaleString()}`;
+
+      if (currentDate > s.fin) {
+        text += ' - Antiguo';
+      }
+
+      text += turns.length > 0 ? ' - Con turnos' : ' - Sin turnos';
+
+      if (turns.every((t) => t.status === 'Realizado')) {
+        text += ' - Todos los turnos finalizados';
+      } else if (turns.some((t) => t.status === 'Realizado')) {
+        text += ' - Algunos turnos finalizados';
+      } else {
+        text += ' - Ningún turno finalizado';
+      }
+
+      return {
+        id: s.id,
+        text
+      };
+    });
+});
+
+watch(lugar, () => {
+  route.meta.title = lugar.value?.nombre;
 });
 </script>

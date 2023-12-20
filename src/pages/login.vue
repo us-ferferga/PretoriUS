@@ -34,7 +34,7 @@
       <QBtn
         type="submit"
         class="mt-2"
-        color="blue"
+        color="primary"
         rounded>
         Iniciar sesión
       </QBtn>
@@ -48,10 +48,10 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { Notify } from 'quasar';
-import { ref } from 'vue';
 import banner from '@/assets/img/header.png';
 import { userStore } from '@/store/user';
+import { Notify } from 'quasar';
+import { ref } from 'vue';
 
 const dni = ref('');
 const password = ref('');

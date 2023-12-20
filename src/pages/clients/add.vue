@@ -131,6 +131,7 @@
 
 <route lang="yaml">
 meta:
+  title: Nuevo cliente
   access: 'D.OPERACIONES'
 </route>
 

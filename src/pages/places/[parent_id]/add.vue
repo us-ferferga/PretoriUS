@@ -85,6 +85,7 @@
 
 <route lang="yaml">
 meta:
+  title: 'Nuevo lugar'
   access: 'D.OPERACIONES'
 </route>
 

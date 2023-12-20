@@ -24,3 +24,49 @@ interface Place {
   plantas: number;
   garita: boolean;
 }
+
+interface Person {
+  dni: string;
+  nss: string;
+  tir: number;
+  status: 'Activo' | 'Inactivo';
+}
+
+interface Arm {
+  id: string;
+  modelo: string;
+  tipo: 'Fijo' | 'Móvil';
+}
+
+interface Vehicle {
+  matricula: string;
+  marca: string;
+  modelo: string;
+  proxItv: Date;
+}
+
+interface Checkpoint {
+  planned_date: Date;
+  done_date: Date;
+  coordinates: string;
+}
+
+interface Turn {
+  id: string;
+  serviceId: string;
+  inicio: Date;
+  fin: Date;
+  status: 'Realizado' | 'Pendiente';
+  vehiculos: Vehicle[];
+  vigilantes: Person[];
+  armas: Arm[];
+  checkpoints: Checkpoint[];
+}
+
+interface Service {
+  id: string;
+  lugarId: string;
+  inicio: Date;
+  fin: Date;
+  comentarios?: string;
+}

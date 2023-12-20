@@ -1,8 +1,8 @@
 <template>
   <QDate
     v-model="date"
-    minimal
-    color="blue" />
+    readonly
+    color="primary" />
 </template>
 
 <script setup lang="ts">
