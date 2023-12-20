@@ -47,6 +47,7 @@ declare module 'vue-router/auto/routes' {
     '/operations_boss/places/[parent_id]/add': RouteRecordInfo<'/operations_boss/places/[parent_id]/add', '/operations_boss/places/:parent_id/add', { parent_id: ParamValue<true> }, { parent_id: ParamValue<false> }>,
     '/operations_boss/services/[parent_id]/[id]': RouteRecordInfo<'/operations_boss/services/[parent_id]/[id]', '/operations_boss/services/:parent_id/:id', { parent_id: ParamValue<true>, id: ParamValue<true> }, { parent_id: ParamValue<false>, id: ParamValue<false> }>,
     '/operations_boss/services/[parent_id]/add': RouteRecordInfo<'/operations_boss/services/[parent_id]/add', '/operations_boss/services/:parent_id/add', { parent_id: ParamValue<true> }, { parent_id: ParamValue<false> }>,
+    '/service_boss/services/[id]': RouteRecordInfo<'/service_boss/services/[id]', '/service_boss/services/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
   }
 }
 

@@ -6,7 +6,7 @@ interface RouteTransition {
 declare module 'vue-router' {
   interface RouteMeta {
     layout: 'default' | 'login';
-    access?: UserType;
+    access?: User['type'];
     title?: string | null;
     transition?: RouteTransition;
   }
@@ -17,4 +17,5 @@ declare module 'vue-router' {
  * https://www.typescriptlang.org/docs/handbook/modules.html
  */
 
-export {};
+export { };
+
