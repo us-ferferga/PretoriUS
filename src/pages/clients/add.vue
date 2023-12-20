@@ -13,45 +13,45 @@
             class="ma-2"
             outlined
             label="Nombre de la empresa"
-            :rules="rules" />
+            :rules="commonFormRules" />
           <QSelect
             v-model="razonSocial"
             class="ma-2"
             outlined
             label="Razón social"
-            :rules="rules"
+            :rules="commonFormRules"
             :options="Object.values(RazonesSociales)" />
           <QInput
             v-model="domicilio"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Domicilio social" />
           <QInput
             v-model="cif"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="CIF" />
           <QInput
             v-model="telefono"
             class="ma-2"
             type="number"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Teléfono de la empresa" />
           <QSelect
             v-model="metodoPago"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Método de pago"
             :options="Object.values(MetodoPago)" />
           <QInput
             v-model="cuentaBancaria"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Número de cuenta bancaria"
             :disable="metodoPago !== 'Transferencia Bancaria'" />
         </QForm>
@@ -71,27 +71,27 @@
             v-model="nombreContacto"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Nombre de contacto" />
           <QInput
             v-model="telefonoContacto"
             class="ma-2"
             type="number"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Teléfono de contacto" />
           <QInput
             v-model="nombreAdministrador"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Nombre del administrador" />
           <QInput
             v-model="telefonoAdministrador"
             class="ma-2"
             type="number"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Teléfono del Administrador" />
         </QForm>
         <div class="flex justify-center mt-5">
@@ -136,6 +136,7 @@ meta:
 
 <script setup lang="ts">
 import { clientStore } from '@/store/clients';
+import { commonFormRules } from '@/store/globals';
 import { Notify, QForm } from 'quasar';
 import { ref } from 'vue';
 
@@ -149,10 +150,6 @@ enum RazonesSociales {
   SA = 'S.A',
   SL = 'S.L'
 }
-
-const rules = [
-  (val: string): boolean | string => val && val.length > 0 || 'Este campo no puede estar vacío'
-];
 
 const form1 = ref<QForm>();
 const form2 = ref<QForm>();

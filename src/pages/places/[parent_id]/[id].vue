@@ -57,8 +57,7 @@ meta:
 import mapPlaceholder from '@/assets/img/map-placeholder.png';
 import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
-import { QForm } from 'quasar';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
 const route = useRoute<'/places/[parent_id]/[id]'>();
@@ -69,21 +68,4 @@ const empresa = computed(() => {
 const lugar = computed(() => {
   return placeStore.places.find((p) => p.id === route.params.id && p.clientId === route.params.parent_id);
 });
-
-enum TipoEdificio {
-  Interior = 'Interior',
-  Exterior = 'Exterior'
-}
-
-const rules = [
-  (val: string): boolean | string => val && val.length > 0 || 'Este campo no puede estar vacío'
-];
-
-const form = ref<QForm>();
-const nombre = ref('');
-const direccion = ref('');
-const edificio = ref<TipoEdificio>();
-const camaras = ref<number>();
-const plantas = ref<number>();
-const garita = ref(false);
 </script>

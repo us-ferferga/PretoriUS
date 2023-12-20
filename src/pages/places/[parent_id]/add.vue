@@ -13,33 +13,33 @@
             class="ma-2"
             outlined
             label="Nombre"
-            :rules="rules" />
+            :rules="commonFormRules" />
           <QInput
             v-model="direccion"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Dirección" />
           <QSelect
             v-model="edificio"
             class="ma-2"
             outlined
             label="Tipo de edificio"
-            :rules="rules"
+            :rules="commonFormRules"
             :options="Object.values(TipoEdificio)" />
           <QInput
             v-model="camaras"
             type="number"
             class="ma-2"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Número de cámaras" />
           <QInput
             v-model="plantas"
             class="ma-2"
             type="number"
             outlined
-            :rules="rules"
+            :rules="commonFormRules"
             label="Número de plantas" />
           <QCheckbox
             v-model="garita"
@@ -90,6 +90,7 @@ meta:
 
 <script setup lang="ts">
 import mapPlaceholder from '@/assets/img/map-placeholder.png';
+import { commonFormRules } from '@/store/globals';
 import { placeStore } from '@/store/places';
 import { Notify, QForm } from 'quasar';
 import { ref } from 'vue';
@@ -101,10 +102,6 @@ enum TipoEdificio {
   Interior = 'Interior',
   Exterior = 'Exterior'
 }
-
-const rules = [
-  (val: string): boolean | string => val && val.length > 0 || 'Este campo no puede estar vacío'
-];
 
 const form = ref<QForm>();
 const nombre = ref('');
