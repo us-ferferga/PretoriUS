@@ -4,7 +4,10 @@
       Clientes
     </template>
     <template #leftContent>
-      <ContentCard :content="testData" addLink="/clients/add" />
+      <ContentCard
+        :content="clientData"
+        add-link="/clients/add"
+        item-link="/clients/[id]" />
     </template>
     <template #rightContent>
       <Calendar />
@@ -13,18 +16,15 @@
 </template>
 
 <script setup lang="ts">
-const testData = [
-  {
-    id: 1,
-    text: 'Lorem ipsum'
-  },
-  {
-    id: 2,
-    text: 'dolor'
-  },
-  {
-    id: 2,
-    text: 'sit'
-  }
-];
+import { computed } from 'vue';
+import { clientStore } from '@/store/clients';
+
+const clientData = computed(() => {
+  return clientStore.clients.map((i) => {
+    return {
+      id: i.id,
+      text: `${i.nombreEmpresa} ${i.razonSocial}`
+    };
+  });
+});
 </script>

@@ -1,5 +1,11 @@
 import { useStorage } from '@vueuse/core';
 
+export enum UserType {
+  OPERACIONES = 'D.OPERACIONES',
+  SEGURIDAD = 'J.SEGURIDAD',
+  SERVICIO = 'J.SERVICIO'
+}
+
 interface UserStoreState {
   currentUserIndex?: number;
   rememberMe: boolean;
@@ -18,9 +24,9 @@ class UserStore {
     localStorage
   );
   private _users: User[] = [
-    { dni: '00000000A', password: 'operaciones', type: 'D.OPERACIONES' },
-    { dni: '11111111B', password: 'seguridad', type: 'J.SEGURIDAD' },
-    { dni: '22222222C', password: 'servicio', type: 'J.SERVICIO' }
+    { dni: '00000000A', password: 'operaciones', type: UserType.OPERACIONES },
+    { dni: '11111111B', password: 'seguridad', type: UserType.SEGURIDAD },
+    { dni: '22222222C', password: 'servicio', type: UserType.SERVICIO }
   ];
   /**
    * Getters

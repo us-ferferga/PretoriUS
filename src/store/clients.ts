@@ -1,79 +1,60 @@
 import { useStorage } from '@vueuse/core';
-
-interface ClientStoreState {
-  currentUserIndex?: number;
-  rememberMe: boolean;
-}
+import { v4 } from 'uuid';
 
 class ClientStore {
   /**
    * == STATE ==
    */
-  private _state = useStorage<ClientStoreState>(
-    'auth',
-    {
-      clients: []
-    },
+  private _state = useStorage<Client[]>(
+    'clients',
+    [],
     localStorage
   );
-  private _users: User[] = [
-    { dni: '00000000A', password: 'operaciones', type: 'D.OPERACIONES' },
-    { dni: '11111111B', password: 'seguridad', type: 'J.SEGURIDAD' },
-    { dni: '22222222C', password: 'servicio', type: 'J.SERVICIO' }
+  private _defaultClients: Client[] = [
+    { id: '7c44560f-5df4-4d52-893b-cb17167daad4',
+      nombreEmpresa: 'Empresa 1',
+      razonSocial: 'S.A',
+      domicilio: 'Calle 1',
+      cif: 'A12345678',
+      telefono: 123_456_789,
+      cuentaBancaria: 'ES1234567891234567891234',
+      metodoPago: 'Transferencia Bancaria',
+      autenticacionBancaria: true,
+      nombreContacto: 'Contacto 1',
+      telefonoContacto: 234_567_890,
+      nombreAdministrador: 'Administrador 1',
+      telefonoAdministrador: 345_678_901
+    },
+    { id: '3f934116-7aff-4792-827e-0ac6883e7311',
+      nombreEmpresa: 'Empresa 2',
+      razonSocial: 'S.L',
+      domicilio: 'Calle 2',
+      cif: 'B12345678',
+      telefono: 123_456_789,
+      metodoPago: 'Cuaderno 19',
+      nombreContacto: 'Contacto 1',
+      telefonoContacto: 234_567_890,
+      nombreAdministrador: 'Administrador 1',
+      telefonoAdministrador: 345_678_901
+    }
   ];
   /**
    * Getters
    */
-  public get currentUser(): User | undefined {
-    return this._state.value.currentUserIndex === undefined ? undefined : this._users[this._state.value.currentUserIndex];
+  public get clients(): readonly Client[] {
+    return [...this._defaultClients, ...this._state.value];
   }
 
   /**
    * Methods
    */
   /**
-   * Logs the user to the application
-   *
-   * @param dni
-   * @param password
-   * @param rememberMe
+   * Añadir cliente
    */
-  public loginUser = (
-    dni: string,
-    password: string,
-    rememberMe = true
-  ): boolean => {
-    const user = this._users.findIndex((u) => u.dni === dni.trim() && u.password === password.trim());
-
-    if (user === -1) {
-      return false;
-    } else {
-      this._state.value.currentUserIndex = user;
-      this._state.value.rememberMe = rememberMe;
-
-      return true;
-    }
-  };
-
-  /**
-   * Logs out the user
-   */
-  public logoutUser = (): void => {
-    this._state.value.currentUserIndex = undefined;
-    this._state.value.rememberMe = true;
-  };
-
-  public signUpUser = (user: User): void => {
-    user.dni = user.dni.trim();
-    user.password = user.password.trim();
-    this._users.push(user);
-  };
-
-  public constructor() {
-    if (!this._state.value.rememberMe) {
-      this._state.value.currentUserIndex = undefined;
-    }
+  public addClient(client: Omit<Client, 'id'>): void {
+    (client as Client).id = v4();
+    this._state.value.push(client as Client);
   }
 }
 
-export const userStore = new UserStore();
+export const clientStore = new ClientStore();
