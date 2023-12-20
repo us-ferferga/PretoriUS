@@ -20,7 +20,6 @@
 			]
 		},
 		"types": [
-			"axios",
 			"unplugin-icons/types/vue",
 			"vite/client",
 			"vue"

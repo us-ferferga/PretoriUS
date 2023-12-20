@@ -56,11 +56,10 @@ interface Turn {
   serviceId: string;
   inicio: Date;
   fin: Date;
-  status: 'Realizado' | 'Pendiente';
-  vehiculos: Vehicle[];
-  vigilantes: Person[];
-  armas: Arm[];
-  checkpoints: Checkpoint[];
+  vehiculos: string[];
+  vigilantes: string[];
+  armas: string[];
+  checkpoints: string[];
 }
 
 interface Service {

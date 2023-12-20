@@ -63,7 +63,7 @@ interface TableItem {
 const props = defineProps<{
   content: TableItem[];
   addLink?: keyof RouteNamedMap;
-  itemLink: keyof RouteNamedMap;
+  itemLink?: keyof RouteNamedMap;
   parentId?: string;
   searchLabel?: string;
 }>();
@@ -85,6 +85,6 @@ function replaceParentId(url: string): string {
  * Replaces the url pattern with the given id
  */
 function replaceId(id: string): string {
-  return replaceParentId(props.itemLink.replace('[id]', id));
+  return props.itemLink ? replaceParentId(props.itemLink.replace('[id]', id)) : id;
 }
 </script>

@@ -10,8 +10,6 @@ declare module 'vue' {
     Calendar: typeof import('./../../src/components/Calendar.vue')['default']
     ContentCard: typeof import('./../../src/components/ContentCard.vue')['default']
     IGgAdd: typeof import('~icons/gg/add')['default']
-    IMdiPlus: typeof import('~icons/mdi/plus')['default']
-    IMdiPlusOutline: typeof import('~icons/mdi/plus-outline')['default']
     InicioOperaciones: typeof import('./../../src/components/Pages/InicioOperaciones.vue')['default']
     InicioSeguridad: typeof import('./../../src/components/Pages/InicioSeguridad.vue')['default']
     InicioServicio: typeof import('./../../src/components/Pages/InicioServicio.vue')['default']

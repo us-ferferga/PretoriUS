@@ -50,6 +50,12 @@
                   color: 'red',
                   type: 'negative'
                 });
+              } else if (serviceStore.services.some(s => s.inicio >= inicioDate && s.fin <= finDate && s.lugarId === route.params.parent_id)) {
+                Notify.create({
+                  message: 'Existe ya un servicio en ese lugar en curso en el rango de fechas especificado',
+                  color: 'red',
+                  type: 'negative'
+                });
               } else {
                 serviceStore.addService({
                   inicio: inicioDate,
@@ -78,7 +84,7 @@ import { Notify } from 'quasar';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/services/[parent_id]/add'>();
+const route = useRoute<'/operations-boss/services/[parent_id]/add'>();
 
 const inicioDate = ref(new Date());
 const finDate = ref(new Date());
@@ -88,7 +94,7 @@ const inicio = computed({
   get() {
     const d = inicioDate.value;
     const date = d.getDate();
-    const month = d.getMonth();
+    const month = d.getMonth() + 1;
     const hours = d.getHours();
     const minutes = d.getMinutes();
     const fullDate = date < 10 ? `0${date}` : date;
@@ -102,14 +108,14 @@ const inicio = computed({
     const [day, month, year] = date.split('-');
     const [hours, minutes] = time.split(':');
 
-    inicioDate.value = new Date(Number(year), Number(month), Number(day), Number(hours), Number(minutes));
+    inicioDate.value = new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
   }
 });
 const fin = computed({
   get() {
     const d = finDate.value;
     const date = d.getDate();
-    const month = d.getMonth();
+    const month = d.getMonth() + 1;
     const hours = d.getHours();
     const minutes = d.getMinutes();
     const fullDate = date < 10 ? `0${date}` : date;
@@ -123,7 +129,7 @@ const fin = computed({
     const [day, month, year] = date.split('-');
     const [hours, minutes] = time.split(':');
 
-    finDate.value = new Date(Number(year), Number(month), Number(day), Number(hours), Number(minutes));
+    finDate.value = new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
   }
 });
 </script>

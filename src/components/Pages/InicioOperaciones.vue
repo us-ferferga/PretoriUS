@@ -6,8 +6,8 @@
     <template #leftContent>
       <ContentCard
         :content="clientData"
-        add-link="/clients/add"
-        item-link="/clients/[id]"
+        add-link="/operations-boss/clients/add"
+        item-link="/operations-boss/clients/[id]"
         search-label="Buscar clientes..." />
     </template>
     <template #rightContent>

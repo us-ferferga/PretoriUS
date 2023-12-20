@@ -11,31 +11,41 @@ class TurnStore {
     localStorage
   );
   private _defaultTurns: Turn[] = [
-    { id: '7c44560f-5df4-4d52-893b-cb17167daad4',
-      nombreEmpresa: 'Empresa 1',
-      razonSocial: 'S.A',
-      domicilio: 'Calle 1',
-      cif: 'A12345678',
-      telefono: 123_456_789,
-      cuentaBancaria: 'ES1234567891234567891234',
-      metodoPago: 'Transferencia Bancaria',
-      autenticacionBancaria: true,
-      nombreContacto: 'Contacto 1',
-      telefonoContacto: 234_567_890,
-      nombreAdministrador: 'Administrador 1',
-      telefonoAdministrador: 345_678_901
+    { id: 'da532689-e4cb-4838-a737-e4b112f9341a',
+      serviceId: 'f323f1d7-7415-4c3e-ba79-045c194b7220',
+      inicio: new Date(2023, 7, 25, 8, 0),
+      fin: new Date(2023, 7, 25, 14, 0),
+      vehiculos: [],
+      vigilantes: [],
+      armas: [],
+      checkpoints: []
     },
-    { id: '3f934116-7aff-4792-827e-0ac6883e7311',
-      nombreEmpresa: 'Empresa 2',
-      razonSocial: 'S.L',
-      domicilio: 'Calle 2',
-      cif: 'B12345678',
-      telefono: 123_456_789,
-      metodoPago: 'Cuaderno 19',
-      nombreContacto: 'Contacto 1',
-      telefonoContacto: 234_567_890,
-      nombreAdministrador: 'Administrador 1',
-      telefonoAdministrador: 345_678_901
+    { id: '49b15920-6711-40a9-89e5-38bd9064c50c',
+      serviceId: 'f323f1d7-7415-4c3e-ba79-045c194b7220',
+      inicio: new Date(2023, 7, 25, 17, 0),
+      fin: new Date(2023, 7, 25, 22, 0),
+      vehiculos: [],
+      vigilantes: [],
+      armas: [],
+      checkpoints: []
+    },
+    { id: 'b8413774-1c25-4db7-a023-989902f5aecd',
+      serviceId: 'f323f1d7-7415-4c3e-ba79-045c194b7220',
+      inicio: new Date(2023, 7, 26, 8, 0),
+      fin: new Date(2023, 7, 26, 14, 0),
+      vehiculos: [],
+      vigilantes: [],
+      armas: [],
+      checkpoints: []
+    },
+    { id: 'ce3abfb2-92da-4947-9763-f26356f131a6',
+      serviceId: 'f323f1d7-7415-4c3e-ba79-045c194b7220',
+      inicio: new Date(2023, 10, 15, 8, 0),
+      fin: new Date(2023, 10, 15, 22, 0),
+      vehiculos: [],
+      vigilantes: [],
+      armas: [],
+      checkpoints: []
     }
   ];
   /**
@@ -48,8 +58,12 @@ class TurnStore {
   /**
    * Methods
    */
-  public addClient = (turn: Omit<Turn, 'id'>): void => {
+  public addTurn = (turn: Omit<Turn, 'id' | 'vehiculos' | 'vigilantes' | 'armas' | 'checkpoints'>): void => {
     (turn as Turn).id = v4();
+    (turn as Turn).vehiculos = [];
+    (turn as Turn).vigilantes = [];
+    (turn as Turn).armas = [];
+    (turn as Turn).checkpoints = [];
     this._state.value.push(turn as Turn);
   };
 }

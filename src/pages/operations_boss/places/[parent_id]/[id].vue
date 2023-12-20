@@ -40,8 +40,8 @@
     <template #rightContent>
       <ContentCard
         :content="servicios"
-        add-link="/services/[parent_id]/add"
-        item-link="/services/[parent_id]/[id]"
+        add-link="/operations-boss/services/[parent_id]/add"
+        item-link="/operations-boss/services/[parent_id]/[id]"
         :parent-id="lugar.id"
         search-label="Buscar servicios..." />
     </template>
@@ -62,7 +62,7 @@ import { turnStore } from '@/store/turns';
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/places/[parent_id]/[id]'>();
+const route = useRoute<'/operations-boss/places/[parent_id]/[id]'>();
 
 const empresa = computed(() => {
   return clientStore.clients.find((p) => p.id === route.params.parent_id);
@@ -76,7 +76,7 @@ const servicios = computed(() => {
   return serviceStore.services.filter((s) => s.lugarId === route.params.id)
     .map((s) => {
       const turns = turnStore.turns.filter((t) => t.serviceId === s.id);
-      let text = `${s.inicio.toLocaleString()} al ${s.fin.toLocaleString()}`;
+      let text = `${s.inicio.toLocaleString()} a ${s.fin.toLocaleString()}`;
 
       if (currentDate > s.fin) {
         text += ' - Antiguo';
@@ -84,9 +84,9 @@ const servicios = computed(() => {
 
       text += turns.length > 0 ? ' - Con turnos' : ' - Sin turnos';
 
-      if (turns.every((t) => t.status === 'Realizado')) {
+      if (turns.every((t) => t.fin <= new Date())) {
         text += ' - Todos los turnos finalizados';
-      } else if (turns.some((t) => t.status === 'Realizado')) {
+      } else if (turns.some((t) => t.fin <= new Date())) {
         text += ' - Algunos turnos finalizados';
       } else {
         text += ' - Ningún turno finalizado';

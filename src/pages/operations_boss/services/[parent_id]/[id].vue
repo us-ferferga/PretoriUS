@@ -57,14 +57,18 @@
                   color: 'red',
                   type: 'negative'
                 });
+              } else if (turnStore.turns.some(t => t.inicio >= inicioDate && t.fin <= finDate && t.serviceId === route.params.id)) {
+                Notify.create({
+                  message: 'Ya existe un turno con esas características',
+                  color: 'red',
+                  type: 'negative'
+                });
               } else {
-                serviceStore.addService({
+                turnStore.addTurn({
                   inicio: inicioDate,
                   fin: finDate,
-                  comentarios,
-                  lugarId: route.params.parent_id
+                  serviceId: route.params.id
                 });
-                $router.back();
               }
             }" />
         </div>
@@ -82,10 +86,11 @@ meta:
 import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
+import { Notify } from 'quasar';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/services/[parent_id]/[id]'>();
+const route = useRoute<'/operations-boss/services/[parent_id]/[id]'>();
 
 const inicioDate = ref(new Date());
 const finDate = ref(new Date());
@@ -98,7 +103,7 @@ const turnos = computed(() => {
     .map((t) => {
       let text = `${t.inicio.toLocaleString()} - ${t.fin.toLocaleString()}`;
 
-      text += t.status === 'Realizado' ? ' - Realizado' : ' - Pendiente';
+      text += t.fin <= new Date()? ' - Realizado' : ' - Pendiente';
 
       return {
         text,
@@ -110,7 +115,7 @@ const inicio = computed({
   get() {
     const d = inicioDate.value;
     const date = d.getDate();
-    const month = d.getMonth();
+    const month = d.getMonth() + 1;
     const hours = d.getHours();
     const minutes = d.getMinutes();
     const fullDate = date < 10 ? `0${date}` : date;
@@ -124,14 +129,14 @@ const inicio = computed({
     const [day, month, year] = date.split('-');
     const [hours, minutes] = time.split(':');
 
-    inicioDate.value = new Date(Number(year), Number(month), Number(day), Number(hours), Number(minutes));
+    inicioDate.value = new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
   }
 });
 const fin = computed({
   get() {
     const d = finDate.value;
     const date = d.getDate();
-    const month = d.getMonth();
+    const month = d.getMonth() + 1;
     const hours = d.getHours();
     const minutes = d.getMinutes();
     const fullDate = date < 10 ? `0${date}` : date;
@@ -145,7 +150,7 @@ const fin = computed({
     const [day, month, year] = date.split('-');
     const [hours, minutes] = time.split(':');
 
-    finDate.value = new Date(Number(year), Number(month), Number(day), Number(hours), Number(minutes));
+    finDate.value = new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
   }
 });
 
