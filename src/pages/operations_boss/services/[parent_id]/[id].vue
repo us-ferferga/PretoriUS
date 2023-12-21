@@ -155,7 +155,6 @@ const fin = computed({
 });
 
 watchEffect(() => {
-
   const inicio = servicio.value?.inicio;
   const fin = servicio.value?.fin;
 

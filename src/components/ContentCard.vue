@@ -21,7 +21,7 @@
     <QCardSection class="h-xl w-2xl overflow-scroll">
       <QList dense>
         <Component
-          :is="itemLink ? 'router-link' : 'template'"
+          :is="itemLink ? RouterLink : 'vue:template'"
           v-for="item,index in filterContent"
           :key="`${index}-${item.id}`"
           v-slot="routerSlots"
@@ -48,6 +48,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { RouterLink } from 'vue-router/auto';
 import { RouteNamedMap } from 'vue-router/auto/routes';
 
 interface TableItem {
