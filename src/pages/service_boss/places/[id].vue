@@ -32,6 +32,7 @@ import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
+import { printDate } from '@/utils/date';
 import { computed, watchEffect } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
@@ -48,7 +49,7 @@ const comentarios = computed(() => servicio.value?.comentarios);
 const turnos = computed(() => {
   return turnStore.turns.filter((t) => t.serviceId === route.params.id)
     .map((t) => {
-      let text = `${t.inicio.toLocaleString()} - ${t.fin.toLocaleString()}`;
+      let text = `${printDate(t.inicio)} - ${printDate(t.fin)}`;
 
       if (t.fin <= new Date()) {
         text += ' - Completado';
@@ -69,6 +70,8 @@ watchEffect(() => {
   const inicio = servicio.value?.inicio;
   const fin = servicio.value?.fin;
 
-  route.meta.title = `Servicio del ${inicio?.toLocaleDateString()} al ${fin?.toLocaleDateString()}`;
+  if (inicio && fin) {
+    route.meta.title = `Servicio del ${printDate(inicio)} al ${printDate(fin)}`;
+  }
 });
 </script>

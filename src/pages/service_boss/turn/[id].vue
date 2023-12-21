@@ -1,7 +1,7 @@
 <template>
   <PageTemplate v-if="lugar && turno">
     <template #leftHeader>
-      {{ lugar.nombre }} - {{ turno.inicio.toLocaleString() }} a {{ turno.fin.toLocaleString() }}
+      {{ lugar.nombre }} - {{ printDate(turno.inicio) }} a {{ printDate(turno.fin) }}
     </template>
     <template #leftContent>
       <h4 class="text-h6">
@@ -40,6 +40,7 @@ import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
 import { vigilantStore } from '@/store/vigilants';
+import { printDate } from '@/utils/date';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router/auto';
 

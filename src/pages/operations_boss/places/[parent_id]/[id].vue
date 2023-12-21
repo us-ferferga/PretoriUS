@@ -59,6 +59,7 @@ import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
+import { printDate } from '@/utils/date';
 import { computed, watchEffect } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
@@ -76,7 +77,7 @@ const servicios = computed(() => {
   return serviceStore.services.filter((s) => s.lugarId === route.params.id)
     .map((s) => {
       const turns = turnStore.turns.filter((t) => t.serviceId === s.id);
-      let text = `${s.inicio.toLocaleString()} a ${s.fin.toLocaleString()}`;
+      let text = `${printDate(s.inicio)} a ${printDate(s.fin)}`;
 
       if (currentDate > s.fin) {
         text += ' - Antiguo';
@@ -99,7 +100,7 @@ const servicios = computed(() => {
     });
 });
 
-watchEffect(lugar, () => {
+watchEffect(() => {
   route.meta.title = lugar.value?.nombre;
 });
 </script>

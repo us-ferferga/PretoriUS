@@ -1,7 +1,7 @@
 <template>
   <PageTemplate v-if="lugar && servicio">
     <template #leftHeader>
-      {{ lugar.nombre }} - ({{ servicio.inicio.toLocaleString() }} - {{ servicio.fin.toLocaleString() }})
+      {{ lugar.nombre }} - ({{ printDate(servicio.inicio) }} - {{ printDate(servicio.fin) }})
     </template>
     <template #leftContent>
       <QInput
@@ -86,6 +86,7 @@ meta:
 import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
+import { printDate } from '@/utils/date';
 import { Notify } from 'quasar';
 import { computed, ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router/auto';
@@ -101,7 +102,7 @@ const comentarios = computed(() => servicio.value?.comentarios);
 const turnos = computed(() => {
   return turnStore.turns.filter((t) => t.serviceId === route.params.id)
     .map((t) => {
-      let text = `${t.inicio.toLocaleString()} - ${t.fin.toLocaleString()}`;
+      let text = `${printDate(t.inicio)} - ${printDate(t.fin)}`;
 
       text += t.fin <= new Date()? ' - Realizado' : ' - Pendiente';
 
@@ -113,17 +114,7 @@ const turnos = computed(() => {
 });
 const inicio = computed({
   get() {
-    const d = inicioDate.value;
-    const date = d.getDate();
-    const month = d.getMonth() + 1;
-    const hours = d.getHours();
-    const minutes = d.getMinutes();
-    const fullDate = date < 10 ? `0${date}` : date;
-    const fullMonth = month < 10 ? `0${month}` : month;
-    const fullHours = hours < 10 ? `0${hours}` : hours;
-    const fullMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-    return `${fullDate}-${fullMonth}-${d.getFullYear()} ${fullHours}:${fullMinutes}`;
+    return printDate(inicioDate.value);
   }, set(val: string) {
     const [date, time] = val.split(' ');
     const [day, month, year] = date.split('-');
@@ -134,17 +125,7 @@ const inicio = computed({
 });
 const fin = computed({
   get() {
-    const d = finDate.value;
-    const date = d.getDate();
-    const month = d.getMonth() + 1;
-    const hours = d.getHours();
-    const minutes = d.getMinutes();
-    const fullDate = date < 10 ? `0${date}` : date;
-    const fullMonth = month < 10 ? `0${month}` : month;
-    const fullHours = hours < 10 ? `0${hours}` : hours;
-    const fullMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-    return `${fullDate}-${fullMonth}-${d.getFullYear()} ${fullHours}:${fullMinutes}`;
+    return printDate(finDate.value);
   }, set(val: string) {
     const [date, time] = val.split(' ');
     const [day, month, year] = date.split('-');
@@ -158,6 +139,8 @@ watchEffect(() => {
   const inicio = servicio.value?.inicio;
   const fin = servicio.value?.fin;
 
-  route.meta.title = `Servicio del ${inicio?.toLocaleDateString()} al ${fin?.toLocaleDateString()}`;
+  if (inicio && fin) {
+    route.meta.title = `Servicio del ${printDate(inicio)} al ${printDate(fin)}`;
+  }
 });
 </script>
