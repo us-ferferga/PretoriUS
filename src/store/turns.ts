@@ -52,7 +52,7 @@ class TurnStore {
    * Getters
    */
   public get turns(): readonly Turn[] {
-    return [...this._defaultTurns, ...this._state.value];
+    return [...this._defaultTurns, ...this._state.value].map(t => ({ ...t, inicio: new Date(t.inicio), fin: new Date(t.fin) }));
   }
 
   /**

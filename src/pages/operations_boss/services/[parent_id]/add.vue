@@ -108,7 +108,7 @@ const inicio = computed({
     const [day, month, year] = date.split('-');
     const [hours, minutes] = time.split(':');
 
-    inicioDate.value = new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
+    inicioDate.value = new Date(Number.parseInt(year), Number.parseInt(month) - 1, Number.parseInt(day), Number.parseInt(hours), Number.parseInt(minutes));
   }
 });
 const fin = computed({
@@ -129,7 +129,7 @@ const fin = computed({
     const [day, month, year] = date.split('-');
     const [hours, minutes] = time.split(':');
 
-    finDate.value = new Date(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes));
+    finDate.value = new Date(Number.parseInt(year), Number.parseInt(month) - 1, Number.parseInt(day), Number.parseInt(hours), Number.parseInt(minutes));
   }
 });
 </script>

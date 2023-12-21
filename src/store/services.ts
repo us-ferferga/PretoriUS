@@ -32,7 +32,7 @@ class ServiceStore {
    * Getters
    */
   public get services(): readonly Service[] {
-    return [...this._defaultServices, ...this._state.value];
+    return [...this._defaultServices, ...this._state.value].map(s => ({ ...s, inicio: new Date(s.inicio), fin: new Date(s.fin) }));
   }
 
   /**
