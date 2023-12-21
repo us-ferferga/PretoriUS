@@ -66,7 +66,7 @@ meta:
 <script setup lang="ts">
 import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
-import { computed, watch } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
 const route = useRoute<'/operations_boss/clients/[id]'>();
@@ -82,7 +82,7 @@ const lugares = computed(() => {
     }));
 });
 
-watch(empresa, () => {
+watchEffect(() => {
   route.meta.title = empresa.value?.nombreEmpresa;
 });
 </script>

@@ -32,7 +32,7 @@ import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
-import { computed, watch } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
 const route = useRoute<'/service_boss/places/[id]'>();
@@ -65,7 +65,7 @@ const turnos = computed(() => {
     });
 });
 
-watch(servicio, () => {
+watchEffect(() => {
   const inicio = servicio.value?.inicio;
   const fin = servicio.value?.fin;
 

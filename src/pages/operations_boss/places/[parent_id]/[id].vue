@@ -59,7 +59,7 @@ import { clientStore } from '@/store/clients';
 import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
-import { computed, watch } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
 const route = useRoute<'/operations_boss/places/[parent_id]/[id]'>();
@@ -99,7 +99,7 @@ const servicios = computed(() => {
     });
 });
 
-watch(lugar, () => {
+watchEffect(lugar, () => {
   route.meta.title = lugar.value?.nombre;
 });
 </script>

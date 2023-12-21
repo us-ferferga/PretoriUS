@@ -87,7 +87,7 @@ import { placeStore } from '@/store/places';
 import { serviceStore } from '@/store/services';
 import { turnStore } from '@/store/turns';
 import { Notify } from 'quasar';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
 const route = useRoute<'/operations_boss/services/[parent_id]/[id]'>();
@@ -154,7 +154,8 @@ const fin = computed({
   }
 });
 
-watch(servicio, () => {
+watchEffect(() => {
+
   const inicio = servicio.value?.inicio;
   const fin = servicio.value?.fin;
 
