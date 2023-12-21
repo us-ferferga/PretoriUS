@@ -24,15 +24,15 @@
           :is="itemLink ? 'router-link' : 'template'"
           v-for="item,index in filterContent"
           :key="`${index}-${item.id}`"
-          v-slot="{ navigate }"
+          v-slot="routerSlots"
           :to="itemLink ? replaceId(item.id) : '/'"
           custom>
           <QItem
             v-ripple
             clickable
             @click="() => {
-              if (itemLink) {
-                navigate();
+              if (itemLink && routerSlots.navigate) {
+                routerSlots.navigate();
               }
               emit('click', item)
             }">
