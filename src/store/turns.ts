@@ -66,6 +66,30 @@ class TurnStore {
     (turn as Turn).checkpoints = [];
     this._state.value.push(turn as Turn);
   };
+
+  public addVigilant = (turn: Turn, dni: string): void => {
+    const oldTurn = this._state.value.find(t => t.id === turn.id);
+
+    if (!oldTurn) {
+      return;
+    }
+
+    this._state.value.splice(this._state.value.indexOf(oldTurn), 1);
+    oldTurn.vigilantes.push(dni);
+    this._state.value.push(oldTurn);
+  };
+
+  public removeVigilant = (turn: Turn, dni: string): void => {
+    const oldTurn = this._state.value.find(t => t.id === turn.id);
+
+    if (!oldTurn) {
+      return;
+    }
+
+    this._state.value.splice(this._state.value.indexOf(oldTurn), 1);
+    oldTurn.vigilantes = oldTurn.vigilantes.filter(v => v !== dni);
+    this._state.value.push(oldTurn);
+  };
 }
 
 export const turnStore = new TurnStore();

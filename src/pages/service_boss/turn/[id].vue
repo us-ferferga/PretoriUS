@@ -7,16 +7,25 @@
       <h4 class="text-h6">
         Vigilantes asignados
       </h4>
+      <p>Pulsar para deasignar</p>
       <ContentCard
         :content="vigilantesAsignados"
-        search-label="Buscar vigilantes asignados..." />
+        search-label="Buscar vigilantes asignados..."
+        @click="(item) => {
+          turnStore.removeVigilant(turno as Turn, item.id)
+        }" />
     </template>
     <template #rightContent>
-      <div class="min-w-xl">
-        <ContentCard
-          :content="vigilantesDisponibles"
-          search-label="Buscar vigilantes disponibles..." />
-      </div>
+      <h4 class="text-h6">
+        Vigilantes disponibles
+      </h4>
+      <p>Pulsar para asignar</p>
+      <ContentCard
+        :content="vigilantesDisponibles"
+        search-label="Buscar vigilantes disponibles..."
+        @click="(item) => {
+          turnStore.addVigilant(turno as Turn, item.id)
+        }" />
     </template>
   </PageTemplate>
 </template>
