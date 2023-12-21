@@ -25,7 +25,8 @@ interface Place {
   garita: boolean;
 }
 
-interface Person {
+interface Vigilant {
+  nombre: string;
   dni: string;
   nss: string;
   tir: number;

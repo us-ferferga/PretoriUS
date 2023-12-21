@@ -20,32 +20,27 @@
     </QCardSection>
     <QCardSection class="h-xl w-2xl overflow-scroll">
       <QList dense>
-        <template v-if="itemLink">
-          <RouterLink
-            v-for="item,index in filterContent"
-            :key="`${index}-${item.id}`"
-            v-slot="{ navigate }"
-            :to="replaceId(item.id)"
-            custom>
-            <QItem
-              v-ripple
-              clickable
-              @click="() => navigate()">
-              <QItemSection>
-                {{ item.text }}
-              </QItemSection>
-            </QItem>
-          </RouterLink>
-        </template>
-        <template v-else>
+        <Component
+          :is="itemLink ? 'router-link' : 'template'"
+          v-for="item,index in filterContent"
+          :key="`${index}-${item.id}`"
+          v-slot="{ navigate }"
+          :to="itemLink ? replaceId(item.id) : '/'"
+          custom>
           <QItem
-            v-for="item,index in filterContent"
-            :key="`${index}-${item.id}`">
+            v-ripple
+            clickable
+            @click="() => {
+              if (itemLink) {
+                navigate();
+              }
+              emit('click', item)
+            }">
             <QItemSection>
               {{ item.text }}
             </QItemSection>
           </QItem>
-        </template>
+        </Component>
       </QList>
     </QCardSection>
   </QCard>
@@ -66,6 +61,10 @@ const props = defineProps<{
   itemLink?: keyof RouteNamedMap;
   parentId?: string;
   searchLabel?: string;
+}>();
+
+const emit = defineEmits<{
+  click: [item: TableItem];
 }>();
 
 const search = ref('');

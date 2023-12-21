@@ -90,7 +90,7 @@ import { Notify } from 'quasar';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/operations-boss/services/[parent_id]/[id]'>();
+const route = useRoute<'/operations_boss/services/[parent_id]/[id]'>();
 
 const inicioDate = ref(new Date());
 const finDate = ref(new Date());

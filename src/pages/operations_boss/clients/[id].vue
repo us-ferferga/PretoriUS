@@ -50,8 +50,8 @@
     <template #rightContent>
       <ContentCard
         :content="lugares"
-        add-link="/operations-boss/places/[parent_id]/add"
-        item-link="/operations-boss/places/[parent_id]/[id]"
+        add-link="/operations_boss/places/[parent_id]/add"
+        item-link="/operations_boss/places/[parent_id]/[id]"
         :parent-id="empresa.id"
         search-label="Buscar lugares..." />
     </template>
@@ -69,7 +69,7 @@ import { placeStore } from '@/store/places';
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/operations-boss/clients/[id]'>();
+const route = useRoute<'/operations_boss/clients/[id]'>();
 
 const empresa = computed(() => {
   return clientStore.clients.find((i) => i.id === route.params.id);

@@ -6,7 +6,7 @@
     <template #leftContent>
       <ContentCard
         :content="clientData"
-        item-link="/operations-boss/clients/[id]"
+        item-link="/service_boss/places/[id]"
         search-label="Buscar servicios..." />
     </template>
     <template #rightContent>

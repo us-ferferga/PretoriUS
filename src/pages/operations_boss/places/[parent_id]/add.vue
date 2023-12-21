@@ -97,7 +97,7 @@ import { Notify, QForm } from 'quasar';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/operations-boss/places/[parent_id]/add'>();
+const route = useRoute<'/operations_boss/places/[parent_id]/add'>();
 
 enum TipoEdificio {
   Interior = 'Interior',

@@ -40,8 +40,8 @@
     <template #rightContent>
       <ContentCard
         :content="servicios"
-        add-link="/operations-boss/services/[parent_id]/add"
-        item-link="/operations-boss/services/[parent_id]/[id]"
+        add-link="/operations_boss/services/[parent_id]/add"
+        item-link="/operations_boss/services/[parent_id]/[id]"
         :parent-id="lugar.id"
         search-label="Buscar servicios..." />
     </template>
@@ -62,7 +62,7 @@ import { turnStore } from '@/store/turns';
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/operations-boss/places/[parent_id]/[id]'>();
+const route = useRoute<'/operations_boss/places/[parent_id]/[id]'>();
 
 const empresa = computed(() => {
   return clientStore.clients.find((p) => p.id === route.params.parent_id);

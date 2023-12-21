@@ -84,7 +84,7 @@ import { Notify } from 'quasar';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router/auto';
 
-const route = useRoute<'/operations-boss/services/[parent_id]/add'>();
+const route = useRoute<'/operations_boss/services/[parent_id]/add'>();
 
 const inicioDate = ref(new Date());
 const finDate = ref(new Date());
