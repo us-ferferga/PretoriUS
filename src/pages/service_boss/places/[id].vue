@@ -16,6 +16,7 @@
       <div class="min-w-xl">
         <ContentCard
           :content="turnos"
+          item-link="/service_boss/turn/[id]"
           search-label="Buscar turnos..." />
       </div>
     </template>
@@ -44,10 +45,10 @@ const lugar = computed(() => {
 const empresa = computed(() => {
   return clientStore.clients.find((p) => p.id === lugar.value?.clientId);
 });
-const servicio = computed(() => serviceStore.services.find((s) => s.id === route.params.id));
+const servicio = computed(() => serviceStore.services.find((s) => s.lugarId === lugar.value?.id));
 const comentarios = computed(() => servicio.value?.comentarios);
 const turnos = computed(() => {
-  return turnStore.turns.filter((t) => t.serviceId === route.params.id)
+  return turnStore.turns.filter((t) => t.serviceId === servicio.value?.id)
     .map((t) => {
       let text = `${printDate(t.inicio)} - ${printDate(t.fin)}`;
 
